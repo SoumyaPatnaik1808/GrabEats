@@ -80,10 +80,10 @@ class _AnimatedGradientBackgroundState extends State<AnimatedGradientBackground>
           decoration: BoxDecoration(
             gradient: LinearGradient(
               colors: const [
-                Color(0xFF0D0E15), // Very dark blue/black
-                Color(0xFF1A1B2E), // Darker blue tone
-                Color(0xFF0A0A10), // Deepest black
-                Color(0xFF14213D), // Neon tint hint
+                Color(0xFF0D0E15),
+                Color(0xFF1A1B2E),
+                Color(0xFF0A0A10),
+                Color(0xFF14213D),
               ],
               begin: _topAlignmentAnimation.value,
               end: _bottomAlignmentAnimation.value,
@@ -91,7 +91,6 @@ class _AnimatedGradientBackgroundState extends State<AnimatedGradientBackground>
             ),
           ),
           child: Container(
-            // Subtle frosted glass overlay for readability
             decoration: BoxDecoration(
               color: Colors.black.withOpacity(0.3),
             ),

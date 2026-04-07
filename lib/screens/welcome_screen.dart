@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../main.dart'; // To navigate to MyHomePage
-import '../widgets/swipe_button.dart';
+import 'check_table_screen.dart';
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({super.key});
@@ -11,171 +10,225 @@ class WelcomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    const Color primaryText = Color(0xFF2D2D36); // Dark slate/navy
-    const Color backgroundGray = Color(0xFFF9F9FC); // Off-white/light gray
+    const Color primaryText = Color(0xFF2D2D36);
+    const Color backgroundGray = Color(0xFFF9F9FC);
     const Color brandYellow = Color(0xFFFFC502);
 
     return Scaffold(
       backgroundColor: backgroundGray,
-      body: Column(
+      body: Stack(
         children: [
-          // Top Curved Section
-          Container(
-            height: size.height * 0.55,
-            width: double.infinity,
-            decoration: BoxDecoration(
-              color: brandYellow,
-              borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(size.width * 0.4),
-                bottomRight: Radius.circular(size.width * 0.4),
-              ),
-            ),
-            child: SafeArea(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const SizedBox(height: 30),
-                  Text(
-                        "Grab Eats",
-                        style: GoogleFonts.poppins(
-                          fontSize: 40,
-                          fontWeight: FontWeight.w800,
-                          color: primaryText,
-                          letterSpacing: -1,
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: SizedBox(
+              height: size.height * 0.45,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 32.0,
+                  vertical: 24.0,
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    const SizedBox(height: 20),
+                    Text(
+                          "Welcome",
+                          style: GoogleFonts.inter(
+                            fontSize: 36,
+                            fontWeight: FontWeight.w500,
+                            color: primaryText,
+                            letterSpacing: -0.5,
+                            height: 1.0,
+                          ),
+                        )
+                        .animate(delay: 1800.ms)
+                        .fade(duration: 600.ms)
+                        .slideX(
+                          begin: -0.1,
+                          end: 0,
+                          curve: Curves.easeOutQuart,
                         ),
-                      )
-                      .animate()
-                      .fade(duration: 800.ms)
-                      .slideY(begin: 0.2, end: 0, curve: Curves.easeOutQuart),
-                  const SizedBox(height: 30),
 
-                  // Icons Row
-                  Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(
-                            Icons.local_pizza_outlined,
-                            size: 50,
-                            color: Colors.black.withOpacity(0.12),
+                    const SizedBox(height: 16),
+
+                    Text(
+                          "Explore the best local restaurants and get your favorite food delivered to your door.",
+                          style: GoogleFonts.inter(
+                            fontSize: 13,
+                            color: const Color(0xFF6C757D),
+                            height: 1.5,
+                            fontWeight: FontWeight.w200,
                           ),
-                          const SizedBox(width: 30),
-                          Icon(
-                            Icons.lunch_dining_outlined,
-                            size: 50,
-                            color: Colors.black.withOpacity(0.12),
-                          ),
-                          const SizedBox(width: 30),
-                          Icon(
-                            Icons.restaurant_outlined,
-                            size: 50,
-                            color: Colors.black.withOpacity(0.12),
-                          ),
-                        ],
-                      )
-                      .animate(delay: 200.ms)
-                      .fade(duration: 800.ms)
-                      .scale(
-                        begin: const Offset(0.8, 0.8),
-                        curve: Curves.easeOutBack,
-                      ),
-                ],
+                        )
+                        .animate(delay: 2000.ms)
+                        .fade(duration: 600.ms)
+                        .slideX(
+                          begin: -0.1,
+                          end: 0,
+                          curve: Curves.easeOutQuart,
+                        ),
+
+                    const Spacer(),
+
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 24.0),
+                      child:
+                          Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Row(
+                                    children: List.generate(4, (index) {
+                                      return Container(
+                                        margin: const EdgeInsets.only(right: 8),
+                                        width: 12,
+                                        height: 12,
+                                        decoration: BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          color: index == 0
+                                              ? brandYellow
+                                              : Colors.grey.shade300,
+                                        ),
+                                      );
+                                    }),
+                                  ),
+                                  InkWell(
+                                    onTap: () {
+                                      Navigator.of(context).pushReplacement(
+                                        PageRouteBuilder(
+                                          pageBuilder:
+                                              (
+                                                context,
+                                                animation,
+                                                secondaryAnimation,
+                                              ) => const CheckTableScreen(),
+                                          transitionsBuilder:
+                                              (
+                                                context,
+                                                animation,
+                                                secondaryAnimation,
+                                                child,
+                                              ) {
+                                                return FadeTransition(
+                                                  opacity: animation,
+                                                  child: child,
+                                                );
+                                              },
+                                          transitionDuration: const Duration(
+                                            milliseconds: 800,
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                    borderRadius: BorderRadius.circular(30),
+                                    child: Container(
+                                      width: 60,
+                                      height: 60,
+                                      decoration: const BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        color: brandYellow,
+                                      ),
+                                      child: const Icon(
+                                        Icons.arrow_forward_rounded,
+                                        color: Color(0xFF2D2D2D),
+                                        size: 30,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              )
+                              .animate(delay: 2200.ms)
+                              .fade(duration: 600.ms)
+                              .slideY(
+                                begin: 0.3,
+                                end: 0,
+                                curve: Curves.easeOutBack,
+                              ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
 
-          // Bottom Text Section
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 32.0,
-                vertical: 24.0,
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  const SizedBox(height: 20),
-                  Text(
-                        "Welcome",
-                        style: GoogleFonts.inter(
-                          fontSize: 42,
-                          fontWeight: FontWeight.w800,
-                          color: primaryText,
-                          letterSpacing: -0.5,
-                          height: 1.1,
+          Align(
+            alignment: Alignment.topCenter,
+            child:
+                Container(
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        color: brandYellow,
+                        borderRadius: BorderRadius.only(
+                          bottomLeft: Radius.circular(size.width * 0.4),
+                          bottomRight: Radius.circular(size.width * 0.4),
                         ),
-                      )
-                      .animate(delay: 400.ms)
-                      .fade(duration: 600.ms)
-                      .slideX(begin: -0.1, end: 0, curve: Curves.easeOutQuart),
+                      ),
+                      child: SafeArea(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const SizedBox(height: 30),
+                            Text(
+                                  "Grab Eats",
+                                  style: GoogleFonts.poppins(
+                                    fontSize: 40,
+                                    fontWeight: FontWeight.w800,
+                                    color: primaryText,
+                                    letterSpacing: -1,
+                                  ),
+                                )
+                                .animate(delay: 1200.ms)
+                                .fade(duration: 800.ms)
+                                .slideY(
+                                  begin: 0.2,
+                                  end: 0,
+                                  curve: Curves.easeOutQuart,
+                                ),
+                            const SizedBox(height: 30),
 
-                  const SizedBox(height: 16),
-
-                  Text(
-                        "Explore the best local restaurants and get your favorite food delivered to your door.",
-                        style: GoogleFonts.inter(
-                          fontSize: 18,
-                          color: const Color(0xFF6C757D),
-                          height: 1.5,
-                          fontWeight: FontWeight.w400,
+                            Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Icon(
+                                      Icons.chair_alt_outlined,
+                                      size: 50,
+                                      color: Colors.black.withOpacity(0.12),
+                                    ),
+                                    const SizedBox(width: 30),
+                                    Icon(
+                                      Icons.lunch_dining_outlined,
+                                      size: 50,
+                                      color: Colors.black.withOpacity(0.12),
+                                    ),
+                                    const SizedBox(width: 30),
+                                    Icon(
+                                      Icons.restaurant_outlined,
+                                      size: 50,
+                                      color: Colors.black.withOpacity(0.12),
+                                    ),
+                                  ],
+                                )
+                                .animate(delay: 1500.ms)
+                                .fade(duration: 800.ms)
+                                .scale(
+                                  begin: const Offset(0.8, 0.8),
+                                  curve: Curves.easeOutBack,
+                                ),
+                          ],
                         ),
-                      )
-                      .animate(delay: 500.ms)
-                      .fade(duration: 600.ms)
-                      .slideX(begin: -0.1, end: 0, curve: Curves.easeOutQuart),
-
-                  const Spacer(),
-
-                  // Swipe Button
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 24.0),
-                    child:
-                        SwipeButton(
-                              onComplete: () {
-                                Future.delayed(
-                                  const Duration(milliseconds: 300),
-                                  () {
-                                    Navigator.of(context).pushReplacement(
-                                      PageRouteBuilder(
-                                        pageBuilder:
-                                            (
-                                              context,
-                                              animation,
-                                              secondaryAnimation,
-                                            ) => const MyHomePage(
-                                              title: 'Grab Eats Home',
-                                            ),
-                                        transitionsBuilder:
-                                            (
-                                              context,
-                                              animation,
-                                              secondaryAnimation,
-                                              child,
-                                            ) {
-                                              return FadeTransition(
-                                                opacity: animation,
-                                                child: child,
-                                              );
-                                            },
-                                        transitionDuration: const Duration(
-                                          milliseconds: 800,
-                                        ),
-                                      ),
-                                    );
-                                  },
-                                );
-                              },
-                            )
-                            .animate(delay: 700.ms)
-                            .fade(duration: 600.ms)
-                            .slideY(
-                              begin: 0.3,
-                              end: 0,
-                              curve: Curves.easeOutBack,
-                            ),
-                  ),
-                ],
-              ),
-            ),
+                      ),
+                    )
+                    .animate(delay: 400.ms)
+                    .custom(
+                      duration: 1000.ms,
+                      curve: Curves.easeInOutCubic,
+                      builder: (context, value, child) {
+                        return SizedBox(
+                          height: size.height - (size.height * 0.45 * value),
+                          child: child,
+                        );
+                      },
+                    ),
           ),
         ],
       ),
